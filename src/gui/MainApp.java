@@ -93,11 +93,37 @@ public class MainApp extends JFrame {
 		panel.add(btn_pow);
 		
 		JButton btn_unDiv = new JButton("1/X");
+		btn_unDiv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				double num2 = Double.parseDouble(lbl_princ.getText());
+				if(num2 != 0){
+					num2 = calc.unDivX(num2);
+					lbl_princ.setText(calc.sinComas(num2));
+					recienCalc = true;
+				}
+				else
+					error.errorEntre0();
+			}
+		});
 		btn_unDiv.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_unDiv.setBounds(277, 11, 80, 60);
 		panel.add(btn_unDiv);
 		
 		JButton btn_del = new JButton("DEL");
+		btn_del.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String lbl1 = lbl_princ.getText();
+				if(lbl1 != "0"){
+					if(lbl1.length() == 1 || (lbl1.length() == 2 && (Double.parseDouble(lbl1) < 0))){
+						lbl1 = "0";
+						recienCalc = true;
+					}
+					else
+						lbl1 = lbl1.substring(0, lbl1.length()-1);
+					lbl_princ.setText(lbl1);
+				}
+			}
+		});
 		btn_del.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_del.setBounds(190, 80, 80, 60);
 		panel.add(btn_del);
@@ -368,11 +394,10 @@ public class MainApp extends JFrame {
 		JButton btn0 = new JButton("0");
 		btn0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				String lbl1 = lbl_princ.getText();
 				if(recienCalc){
-					recienCalc = false;
-					lbl_princ.setText("");
+					lbl_princ.setText("0");
 				}
+				String lbl1 = lbl_princ.getText();
 				if(!lbl1.equals("0"))
 					lbl_princ.setText(lbl_princ.getText() + "0");
 			}
