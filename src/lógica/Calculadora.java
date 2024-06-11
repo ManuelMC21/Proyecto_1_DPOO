@@ -1,7 +1,7 @@
 package lógica;
 
 public class Calculadora {
-
+	
 	private double suma (double num1, double num2){
 		return num1 + num2;
 	}
@@ -30,6 +30,10 @@ public class Calculadora {
 		return Math.sqrt(num1);
 	}
 	
+	public double porciento (double num1){
+		return num1 * 0.01;
+	}
+	
 	public String sinComas (double num){
 		String salida;
 		if(num == (long)num)
@@ -41,6 +45,7 @@ public class Calculadora {
 	
 	public double igual (double num1, double num2 , int operacion){
 		double result = 0;
+		// 1-Suma 2-Resta 3-multiplicacion 4-Division
 		switch (operacion){
 		case 1 :{
 			result = this.suma(num1,num2);
@@ -48,6 +53,14 @@ public class Calculadora {
 		}
 		case 2 :{
 			result = this.resta(num1, num2);
+			break;
+		}
+		case 3 :{
+			result = this.mult(num1, num2);
+			break;
+		}
+		case 4 :{
+			result = this.div(num1, num2);
 			break;
 		}
 		}
