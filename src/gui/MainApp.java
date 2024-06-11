@@ -56,6 +56,13 @@ public class MainApp extends JFrame {
 		panel.setLayout(null);
 		
 		JButton btn_por = new JButton("%");
+		btn_por.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				double num2 = Double.parseDouble(lbl_princ.getText());
+				num2 = calc.porciento(num2);
+				lbl_princ.setText(calc.sinComas(num2));
+			}
+		});
 		btn_por.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_por.setBounds(10, 11, 80, 60);
 		panel.add(btn_por);
@@ -98,7 +105,8 @@ public class MainApp extends JFrame {
 		JButton btn_c = new JButton("C");
 		btn_c.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lbl_princ.setText("");
+				lbl_princ.setText("0");
+				recienCalc = true;
 			}
 		});
 		btn_c.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -108,9 +116,10 @@ public class MainApp extends JFrame {
 		JButton btn_ce = new JButton("CE");
 		btn_ce.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				lbl_princ.setText("");
+				lbl_princ.setText("0");
 				lbl_secun.setText("");
 				numUp = 0;
+				recienCalc = true;
 			}
 		});
 		btn_ce.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -118,6 +127,25 @@ public class MainApp extends JFrame {
 		panel.add(btn_ce);
 		
 		JButton btn_div = new JButton("\u00F7");
+		btn_div.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				double num2 = Double.parseDouble(lbl_princ.getText());
+				if(oper == 4 && num2 == 0)
+					error.errorEntre0();
+				else{
+					if(recienCalc)
+						lbl_princ.setText("");
+					recienCalc = true;
+					if(lbl_secun.getText() == "")
+						numUp = num2;
+					else
+						numUp = calc.igual(numUp, num2, oper);
+					lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2) + " / ");
+					lbl_princ.setText(calc.sinComas(numUp));
+					oper = 4;
+				}
+			}
+		});
 		btn_div.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_div.setBounds(277, 80, 80, 60);
 		panel.add(btn_div);
@@ -166,6 +194,25 @@ public class MainApp extends JFrame {
 		panel.add(btn1);
 		
 		JButton btn_mult = new JButton("X");
+		btn_mult.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				double num2 = Double.parseDouble(lbl_princ.getText());
+				if(oper == 4 && num2 == 0)
+					error.errorEntre0();
+				else{
+					if(recienCalc)
+						lbl_princ.setText("");
+					recienCalc = true;
+					if(lbl_secun.getText() == "")
+						numUp = num2;
+					else
+						numUp = calc.igual(numUp, num2, oper);
+					lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2) + " * ");
+					lbl_princ.setText(calc.sinComas(numUp));
+					oper = 3;
+				}
+			}
+		});
 		btn_mult.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_mult.setBounds(277, 150, 80, 60);
 		panel.add(btn_mult);
@@ -216,16 +263,20 @@ public class MainApp extends JFrame {
 		btn_menos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				double num2 = Double.parseDouble(lbl_princ.getText());
-				if(recienCalc)
-					lbl_princ.setText("");
-				recienCalc = true;
-				if(lbl_secun.getText() == "")
-					numUp = num2;
-				else
-					numUp = calc.igual(numUp, num2, oper);
-				lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2) + " - ");
-				lbl_princ.setText(calc.sinComas(numUp));
-				oper = 2;
+				if(oper == 4 && num2 == 0)
+					error.errorEntre0();
+				else{
+					if(recienCalc)
+						lbl_princ.setText("");
+					recienCalc = true;
+					if(lbl_secun.getText() == "")
+						numUp = num2;
+					else
+						numUp = calc.igual(numUp, num2, oper);
+					lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2) + " - ");
+					lbl_princ.setText(calc.sinComas(numUp));
+					oper = 2;
+				}
 			}
 		});
 		btn_menos.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -278,16 +329,20 @@ public class MainApp extends JFrame {
 		btn_mas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				double num2 = Double.parseDouble(lbl_princ.getText());
-				if(recienCalc)
-					lbl_princ.setText("");
-				recienCalc = true;
-				if(lbl_secun.getText() == "")
-					numUp = num2;
-				else
-					numUp = calc.igual(numUp, num2, oper);
-				lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2) + " + ");
-				lbl_princ.setText(calc.sinComas(numUp));
-				oper = 1;
+				if(oper == 4 && num2 == 0)
+					error.errorEntre0();
+				else{
+					if(recienCalc)
+						lbl_princ.setText("");
+					recienCalc = true;
+					if(lbl_secun.getText() == "")
+						numUp = num2;
+					else
+						numUp = calc.igual(numUp, num2, oper);
+					lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2) + " + ");
+					lbl_princ.setText(calc.sinComas(numUp));
+					oper = 1;
+				}
 			}
 		});
 		btn_mas.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -313,11 +368,13 @@ public class MainApp extends JFrame {
 		JButton btn0 = new JButton("0");
 		btn0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				String lbl1 = lbl_princ.getText();
 				if(recienCalc){
-					lbl_princ.setText("");
 					recienCalc = false;
+					lbl_princ.setText("");
 				}
-				lbl_princ.setText(lbl_princ.getText() + "0");
+				if(!lbl1.equals("0"))
+					lbl_princ.setText(lbl_princ.getText() + "0");
 			}
 		});
 		btn0.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -349,9 +406,13 @@ public class MainApp extends JFrame {
 		btn_igual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				double num2 = Double.parseDouble(lbl_princ.getText());
-				lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2));
-				numUp = calc.igual(numUp, num2, oper);
-				lbl_princ.setText(calc.sinComas(numUp));
+				if(oper == 4 && num2 == 0)
+					error.errorEntre0();
+				else{
+					lbl_secun.setText(lbl_secun.getText() + calc.sinComas(num2));
+					numUp = calc.igual(numUp, num2, oper);
+					lbl_princ.setText(calc.sinComas(numUp));
+				}
 			}
 		});
 		btn_igual.setFont(new Font("Tahoma", Font.BOLD, 20));
